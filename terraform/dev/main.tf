@@ -29,13 +29,21 @@ resource "aws_s3_bucket" "terraform-state-demo" {
     }
 }
 
-resource "aws_vpc" "cicd-vpc" {
-    cidr_block = "10.0.0.0/16"
-    enable_dns_support = "true"
-    enable_dns_hostnames = "true"
-    enable_classiclink = "false"
-    instance_tenancy = "default"
-    tags = {
-        Name = "cicd-vpc"
+resource "aws_db_instance" "default" {
+    allocated_storage    = 10
+    engine               = "mysql"
+    engine_version       = "5.7"
+    instance_class       = "db.t3.micro"
+    name                 = "mycicddb"
+    username             = "admin"
+    password             = "abcd1234"
+    parameter_group_name = "default.mysql5.7"
+    skip_final_snapshot  = true
+    lifecycle {
+        ignore_changes = [
+            identifier,
+            identifier_prefix,
+            restore_to_point_in_time,
+        ]
     }
 }
