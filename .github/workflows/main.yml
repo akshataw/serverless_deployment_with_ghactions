@@ -91,7 +91,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          path: ./terraform/tfplan.txt
+          path: ./terraform/dev/tfplan.txt
           # path: ./serverless/RDS/tfplan.txt
   
   production-deploy:
@@ -171,5 +171,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          path: ./terraform/tfplan.txt
+          path: ./terraform/staging/tfplan.txt
           # path: ./serverless/RDS/tfplan.txt
