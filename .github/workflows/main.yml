@@ -22,8 +22,9 @@ jobs:
     defaults:
       run:
         shell: bash
-    if: github.ref == 'refs/heads/develop'
+    # if: github.ref == 'refs/heads/develop'
     # if: contains(github.ref, 'develop')
+    if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
     steps:
       - uses: actions/checkout@v1
 
@@ -45,7 +46,7 @@ jobs:
 
       - name: Terraform Apply (staging)
         # if: endsWith(github.ref, '/develop') && github.event_name == 'push'
-        if: endsWith(github.ref, '/develop') && github.event_name == 'push'
+        if: github.event_name == 'push'
         run: terraform apply -auto-approve=true
         working-directory: ./terraform
       
@@ -70,7 +71,7 @@ jobs:
 
       - name: Serverless Deploy (staging)
         # if: endsWith(github.ref, '/develop') && github.event_name == 'push'
-        if: endsWith(github.ref, '/develop') && github.event_name == 'push'
+        if: github.event_name == 'push'
         run: npx serverless deploy
         working-directory: ./serverless
 
@@ -104,8 +105,9 @@ jobs:
     defaults:
       run:
         shell: bash
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     # if: contains(github.ref, 'refs/heads/main')
+    if: github.ref == 'refs/heads/main' || github.event.pull_request.base.ref == 'main'
     steps:
       - uses: actions/checkout@v1
 
