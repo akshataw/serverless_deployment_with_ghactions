@@ -12,9 +12,3 @@ functions:
       - http:
           path: /
           method: get
-  welcome:
-    handler: welcome.welcome
-    events:
-      - http:
-          path: /welcome
-          method: get
