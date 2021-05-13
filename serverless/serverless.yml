@@ -1,0 +1,20 @@
+service: serverless-gh-actions-demo
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
+  welcome:
+    handler: welcome.welcome
+    events:
+      - http:
+          path: /welcome
+          method: get
